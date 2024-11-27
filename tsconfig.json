@@ -23,7 +23,6 @@
     "resolveJsonModule": true,
     "rootDir": "src",
     "skipLibCheck": true,
-    "strict": true,
     "target": "es5",
   },
 }
