@@ -12,7 +12,7 @@ const makeSut = (): AxiosHttpClient => {
 }
 
 describe('AxiosHttpClient', () => {
-  test('should call axios with correct URL', async () => {
+  test('should call axios with correct URL and verd', async () => {
     const url = faker.internet.url()
 
     const sut = makeSut()
