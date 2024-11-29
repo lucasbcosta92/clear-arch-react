@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTests",
+    "dev": "webpack-dev-server --open",
+    "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:ci": "npm test -- --coverage",
     "test:staged": "npm test -- --findRelatedTests",
     "test:watch": "npm test -- --watch"
@@ -25,6 +26,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.6.0",
+    "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-standard": "^4.1.0",
     "git-commit-msg-linter": "^5.0.8",
     "husky": "^9.1.7",
