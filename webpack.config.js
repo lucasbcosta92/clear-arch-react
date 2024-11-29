@@ -10,6 +10,32 @@ module.exports = {
     react: 'React',
     'react-dom': 'ReactDOM'
   },
+  module: {
+    rules: [
+      {
+        exclude: /node_modules/,
+        loader: 'ts-loader',
+        test: /\.ts(x?)$/
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          },
+          {
+            loader: 'sass-loader'
+          },
+          {
+            loader: 'style-loader'
+          }
+        ],
+      }
+    ]
+  },
   output: {
     clean: true,
     filename: 'index.js',
@@ -20,6 +46,6 @@ module.exports = {
     alias: {
       '@': path.join(__dirname, 'src')
     },
-    extensions: ['.js', '.ts', '.tsx']
+    extensions: ['.js', '.ts', '.tsx', 'scss']
   },
 }
