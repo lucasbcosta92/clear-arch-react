@@ -1,9 +1,17 @@
+const path = require('path')
+
 module.exports = {
   mode: 'development',
   devServer: {
-    contentBase: './public',
+    static: {
+      directory: path.join(__dirname, 'public')
+    },
+    devMiddleware: {
+      writeToDisk: true
+    },
     historyApiFallback: true,
-    writeToDisk: true
+    open: true,
+    port: 3000
   },
   entry: './src/main/index.tsx',
   externals: {
@@ -13,39 +21,29 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /node_modules/,
+        test: /\.ts(x?)$/,
         loader: 'ts-loader',
-        test: /\.ts(x?)$/
+        exclude: /node_modules/
       },
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true
-            }
-          },
-          {
-            loader: 'sass-loader'
-          },
-          {
-            loader: 'style-loader'
-          }
-        ],
+          { loader: 'style-loader' },
+          { loader: 'css-loader', options: { modules: true } },
+          { loader: 'sass-loader' }
+        ]
       }
     ]
   },
   output: {
-    clean: true,
-    filename: 'index.js',
     path: path.join(__dirname, 'public/js'),
-    publicPath: '/public/js'
+    publicPath: '/public/js',
+    filename: 'index.js'
   },
   resolve: {
     alias: {
       '@': path.join(__dirname, 'src')
     },
-    extensions: ['.js', '.ts', '.tsx', 'scss']
-  },
+    extensions: ['.ts', '.tsx', '.js', '.scss'],
+  }
 }
