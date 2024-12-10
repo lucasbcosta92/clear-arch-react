@@ -1,4 +1,5 @@
 @import '../../styles/colors.scss';
+@import '../../components/spinner/spinner-styles.scss';
 
 * {
   -webkit-font-smoothing: antialiased;
@@ -42,6 +43,7 @@ button {
 .login {
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   .header {
     align-items: center;
@@ -65,61 +67,62 @@ button {
     flex-direction: column;
     padding: 40px;
     width: 400px;
+    margin: 40px 0;
+  }
 
-    h2 {
+  h2 {
+    color: $primaryDark;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .input-wrapper {
+    align-items: center;
+    display: flex;
+    margin-top: 16px;
+    position: relative;
+
+    input {
+      flex-grow: 1;
+    }
+
+    .status {
+      cursor: help;
+      font-size: 12px;
+      position: absolute;
+      right: 8px;
+    }
+  }
+
+  .submit {
+    margin-top: 32px;
+  }
+
+  .link {
+    color: $primary;
+    margin-top: 16px;
+    text-align: center;
+    text-transform: lowercase;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .error-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    .spinner {
+      margin-top: 30px;
+    }
+    
+    .error {
       color: $primaryDark;
-      font-size: 20px;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .inputWrap {
-      align-items: center;
-      display: flex;
-      margin-top: 16px;
-      position: relative;
-
-      input {
-        flex-grow: 1;
-      }
-
-      .status {
-        cursor: help;
-        font-size: 12px;
-        position: absolute;
-        right: 8px;
-      }
-    }
-
-    .submit {
-      margin-top: 32px;
-    }
-
-    .link {
-      color: $primary;
-      margin-top: 16px;
-      text-align: center;
-      text-transform: lowercase;
-
-      &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    }
-
-    .errorWrap {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-
-      .spinner {
-        margin-top: 30px;
-      }
-
-      .error {
-        color: $primaryLight;
-        margin-top: 30px;
-      }
+      margin-top: 30px;
     }
   }
 
