@@ -1,0 +1,17 @@
+.input-wrapper {
+  align-items: center;
+  display: flex;
+  margin-top: 16px;
+  position: relative;
+
+  input {
+    flex-grow: 1;
+  }
+
+  .status {
+    cursor: help;
+    font-size: 12px;
+    position: absolute;
+    right: 8px;
+  }
+}

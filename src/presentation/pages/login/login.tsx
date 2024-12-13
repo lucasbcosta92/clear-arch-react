@@ -4,6 +4,7 @@ import React from 'react'
 
 import Footer from '@/presentation/components/footer/footer'
 import Header from '@/presentation/components/login-header/login-header'
+import Input from '@/presentation/components/input/input'
 import Spinner from '@/presentation/components/spinner/spinner'
 
 const Login: React.FC = () => {
@@ -12,14 +13,8 @@ const Login: React.FC = () => {
       <Header />
       <form className='form'>
         <h2>Login</h2>
-        <div className='input-wrapper'>
-          <input type='email' name='email' placeholder='Digite seu e-mail' />
-          <span className='status'>🔴</span>
-        </div>
-        <div className='input-wrapper'>
-          <input type='password' name='password' placeholder='Digite sua senha' />
-          <span className='status'>🔴</span>
-        </div>
+        <Input type="email" name='email' placeholder='Digite seu e-mail' />
+        <Input type='password' name='password' placeholder='Digite sua senha' />
         <button className='submit' type="submit">Entrar</button>
         <span className='link'>Criar conta</span>
         <div className='error-wrapper'>

@@ -1,5 +1,6 @@
 @import '../../styles/colors.scss';
 @import '../../components/footer/footer-styles.scss';
+@import '../../components/input/input-styles.scss';
 @import '../../components/login-header/login-header-styles.scss';
 @import '../../components/spinner/spinner-styles.scss';
 
@@ -64,25 +65,7 @@ button {
     font-size: 20px;
     text-align: center;
     text-transform: uppercase;
-  }
-
-  .input-wrapper {
-    align-items: center;
-    display: flex;
-    margin-top: 16px;
-    position: relative;
-
-    input {
-      flex-grow: 1;
-    }
-
-    .status {
-      cursor: help;
-      font-size: 12px;
-      position: absolute;
-      right: 8px;
-    }
-  }
+  }  
 
   .submit {
     margin-top: 32px;
