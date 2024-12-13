@@ -1,4 +1,6 @@
 @import '../../styles/colors.scss';
+@import '../../components/footer/footer-styles.scss';
+@import '../../components/login-header/login-header-styles.scss';
 @import '../../components/spinner/spinner-styles.scss';
 
 * {
@@ -44,19 +46,6 @@ button {
   display: flex;
   flex-direction: column;
   height: 100%;
-
-  .header {
-    align-items: center;
-    background-color: $primary;
-    border-top: 40px solid $primaryDark;
-    display: flex;
-    justify-content: center;
-
-    h1 {
-      color: $white;
-      margin: 40px 0;
-    }
-  }
 
   .form {
     align-self: center;
@@ -124,10 +113,5 @@ button {
       color: $primaryDark;
       margin-top: 30px;
     }
-  }
-
-  .footer {
-    background-color: $primary;
-    height: 40px;
   }
 }
