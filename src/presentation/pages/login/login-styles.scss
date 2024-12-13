@@ -1,48 +1,8 @@
-@import '../../styles/colors.scss';
 @import '../../components/footer/footer-styles.scss';
 @import '../../components/form-status/form-status-styles.scss';
 @import '../../components/input/input-styles.scss';
 @import '../../components/login-header/login-header-styles.scss';
 @import '../../components/spinner/spinner-styles.scss';
-
-* {
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-}
-
-body {
-  background-color: $background;
-}
-
-input[type="email"],
-input[type="password"] {
-  border-radius: 4px;
-  border: 1px solid $primaryLight;
-  line-height: 40px;
-  padding: 0 40px 0 8px;
-
-  &:focus {
-    outline-color: $primaryLight;
-  }
-}
-
-button {
-  background-color: $primary;
-  border-radius: 8px;
-  border: 0;
-  color: $white;
-  font-size: 16px;
-  line-height: 60px;
-
-  &:hover {
-    opacity: 0.9;
-  }
-}
 
 .login {
   display: flex;
