@@ -1,5 +1,6 @@
 @import '../../styles/colors.scss';
 @import '../../components/footer/footer-styles.scss';
+@import '../../components/form-status/form-status-styles.scss';
 @import '../../components/input/input-styles.scss';
 @import '../../components/login-header/login-header-styles.scss';
 @import '../../components/spinner/spinner-styles.scss';
@@ -80,21 +81,6 @@ button {
     &:hover {
       cursor: pointer;
       text-decoration: underline;
-    }
-  }
-
-  .error-wrapper {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-
-    .spinner {
-      margin-top: 30px;
-    }
-    
-    .error {
-      color: $primaryDark;
-      margin-top: 30px;
     }
   }
 }

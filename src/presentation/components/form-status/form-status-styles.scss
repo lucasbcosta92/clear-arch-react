@@ -1,0 +1,16 @@
+@import '../../styles/colors.scss';
+
+.form-status {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  .spinner {
+    margin-top: 30px;
+  }
+  
+  .error {
+    color: $primaryDark;
+    margin-top: 30px;
+  }
+}
