@@ -5,24 +5,24 @@ import React, { useState } from 'react'
 import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
 
-type StateProps = {
-  errorMessage: string
-  isLoading: boolean
-}
-
 const Login: React.FC = () => {
-  const [state] = useState<StateProps>({
-    errorMessage: '',
+  const [errorState] = useState({
+    email: 'Required field',
+    password: 'Required field',
+    main: ''
+  })
+
+  const [state] = useState({
     isLoading: false
   })
 
   return (
     <div className='login'>
       <LoginHeader />
-      <Context.Provider value={state}>
+      <Context.Provider value={{ errorState, state }}>
         <form className='form'>
           <h2>Login</h2>
-          <Input type="email" name='email' placeholder='Digite seu e-mail' />
+          <Input title="email" type="email" name='email' placeholder='Digite seu e-mail' />
           <Input type='password' name='password' placeholder='Digite sua senha' />
           <button data-testid="submit" disabled className='submit' type="submit">Entrar</button>
           <span className='link'>Criar conta</span>
