@@ -7,10 +7,10 @@ import Context from '@/presentation/contexts/form/form-context'
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const Input: React.FC<Props> = (props: Props) => {
-  const { errorState } = useContext(Context)
+  const { state, setState } = useContext(Context)
 
   const inputName = props.name
-  const error = errorState[inputName]
+  const error = state[`${inputName}Error`]
 
   const getStatus = (): string => {
     return '❌'
@@ -20,9 +20,18 @@ const Input: React.FC<Props> = (props: Props) => {
     return error
   }
 
+  const handleChange = (event: React.FocusEvent<HTMLInputElement>): void => {
+    const target = event.target
+
+    setState({
+      ...state,
+      [target.name]: target.value
+    })
+  }
+
   return (
     <div className='input-wrapper'>
-      <input {...props} />
+      <input data-testid={inputName} onChange={handleChange} {...props} />
       <span data-testid={`${inputName}-status`} title={getTitle()} className='status'>{getStatus()}</span>
     </div>
   )
