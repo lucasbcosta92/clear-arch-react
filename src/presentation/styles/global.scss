@@ -17,12 +17,12 @@ body {
 input[type="email"],
 input[type="password"] {
   border-radius: 4px;
-  border: 1px solid $primaryLight;
+  border: 1px solid $primary-light;
   line-height: 40px;
   padding: 0 40px 0 8px;
 
   &:focus {
-    outline-color: $primaryLight;
+    outline-color: $primary-light;
   }
 }
 

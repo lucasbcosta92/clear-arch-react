@@ -22,7 +22,7 @@
   }
 
   h2 {
-    color: $primaryDark;
+    color: $primary-dark;
     font-size: 20px;
     text-align: center;
     text-transform: uppercase;
@@ -30,6 +30,15 @@
 
   .submit {
     margin-top: 32px;
+
+    &:disabled {
+      background-color: $disabled-background;
+      color: $disabled-color;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 
   .link {
