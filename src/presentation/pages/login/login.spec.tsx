@@ -96,4 +96,21 @@ describe('Login page', () => {
     expect(passwordStatus.title).toBe('OK')
     expect(passwordStatus.textContent).toBe('✅')
   })
+
+  test('should enable submit button if for is valid', () => {
+    const { sut, validationStub } = makeSut()
+
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    validationStub.errorMessage = null
+
+    const emailInput = sut.getByTestId('email')
+    fireEvent.input(emailInput, { target: { value: email } })
+
+    const passwordInput = sut.getByTestId('password')
+    fireEvent.input(passwordInput, { target: { value: password } })
+
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement
+    expect(submitButton.disabled).toBe(false)
+  })
 })
