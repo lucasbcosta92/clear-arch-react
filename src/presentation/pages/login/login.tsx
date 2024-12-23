@@ -21,6 +21,12 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     mainError: ''
   })
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+
+    setState({ ...state, isLoading: true })
+  }
+
   useEffect(() => {
     setState({
       ...state,
@@ -33,7 +39,7 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     <div className='login'>
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
-        <form className='form'>
+        <form className='form' onSubmit={handleSubmit}>
           <h2>Login</h2>
           <Input title="email" type="email" name='email' placeholder='Digite seu e-mail' />
           <Input type='password' name='password' placeholder='Digite sua senha' />
