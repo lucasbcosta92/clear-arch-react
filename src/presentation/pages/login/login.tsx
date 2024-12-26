@@ -1,7 +1,7 @@
 import './login-styles.scss'
 
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
@@ -24,6 +24,8 @@ const Login: React.FC<Props> = ({ authentication, validation }: Props) => {
     mainError: ''
   })
 
+  const navigate = useNavigate()
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
 
@@ -40,6 +42,9 @@ const Login: React.FC<Props> = ({ authentication, validation }: Props) => {
       })
 
       localStorage.setItem('accessToken', account.accessToken)
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      navigate('/')
     } catch (error) {
       setState({
         ...state,
