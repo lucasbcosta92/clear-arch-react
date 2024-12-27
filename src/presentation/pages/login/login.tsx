@@ -10,8 +10,8 @@ import { type Authentication } from '@/domain/use-cases'
 import { type Validation } from '@/presentation/protocols/validation'
 
 type Props = {
-  authentication?: Authentication
-  validation?: Validation
+  authentication: Authentication
+  validation: Validation
 }
 
 const Login: React.FC<Props> = ({ authentication, validation }: Props) => {
