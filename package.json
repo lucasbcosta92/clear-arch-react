@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "main": "index.js",
   "scripts": {
+    "check": "npm-check -u -s",
     "dev": "webpack-dev-server --open",
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:ci": "npm test -- --coverage",
