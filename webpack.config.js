@@ -1,4 +1,5 @@
 const path = require('path')
+const { DefinePlugin } = require('webpack')
 
 module.exports = {
   mode: 'development',
@@ -45,5 +46,10 @@ module.exports = {
       '@': path.join(__dirname, 'src')
     },
     extensions: ['.ts', '.tsx', '.js', '.scss'],
-  }
+  },
+  plugins: [
+    new DefinePlugin({
+      'process.env.API_URL': 'http://fordevs.herokuapp.com/api'
+    })
+  ]
 }
