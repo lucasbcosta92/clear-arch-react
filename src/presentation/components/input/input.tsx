@@ -9,6 +9,7 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
 const Input: React.FC<Props> = (props: Props) => {
   const { state, setState } = useContext(Context)
 
+  // eslint-disable-next-line react/prop-types
   const inputName = props.name
   const error = state[`${inputName}Error`]
 

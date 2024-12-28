@@ -5,6 +5,7 @@
   "scripts": {
     "check": "npm-check -u -s",
     "dev": "webpack-dev-server --open",
+    "lint": "eslint . --ext .ts,.tsx",
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:ci": "npm test -- --coverage",
     "test:staged": "npm test -- --findRelatedTests",
