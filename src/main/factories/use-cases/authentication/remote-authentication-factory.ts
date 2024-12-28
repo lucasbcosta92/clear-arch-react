@@ -4,5 +4,5 @@ import { RemoteAuthentication } from '@/data/use-cases/authentication/remote-aut
 import { type Authentication } from '@/domain/use-cases'
 
 export const makeRemoteAuthentication = (): Authentication => {
-  return new RemoteAuthentication(makeApiUrl(), makeAxiosHttpClient())
+  return new RemoteAuthentication(makeApiUrl('/login'), makeAxiosHttpClient())
 }
