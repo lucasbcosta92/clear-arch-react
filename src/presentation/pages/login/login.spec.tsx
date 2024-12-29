@@ -94,7 +94,7 @@ const testElementExists = (sut: RenderResult, fieldName: string): void => {
   expect(element).toBeTruthy()
 }
 
-const testElementTest = (
+const testElementText = (
   sut: RenderResult,
   fieldName: string,
   text: string
@@ -217,7 +217,7 @@ describe('Login page', () => {
 
     await simulateValidSubmit(sut)
 
-    testElementTest(sut, 'main-error', error.message)
+    testElementText(sut, 'main-error', error.message)
     testFormStatusChildCount(sut, 1)
   })
 
