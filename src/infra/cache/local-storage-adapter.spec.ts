@@ -3,13 +3,15 @@ import { faker } from '@faker-js/faker'
 
 import { LocalStorageAdapter } from '@/infra/cache/local-storage-adatpter'
 
+const makeSut = (): LocalStorageAdapter => new LocalStorageAdapter()
+
 describe('LocalStorageAdapter', () => {
   beforeEach(() => {
     localStorage.clear()
   })
 
   test('Should call localStorage with correct values', async () => {
-    const sut = new LocalStorageAdapter()
+    const sut = makeSut()
 
     const key = faker.database.column()
     const value = faker.string.alphanumeric()
