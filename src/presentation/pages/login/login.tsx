@@ -6,15 +6,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
 
-import { type Authentication } from '@/domain/use-cases'
+import { type Authentication, type SaveAccessToken } from '@/domain/use-cases'
 import { type Validation } from '@/presentation/protocols/validation'
 
 type Props = {
   authentication: Authentication
   validation: Validation
+  saveAccessToken: SaveAccessToken
 }
 
-const Login: React.FC<Props> = ({ authentication, validation }: Props) => {
+const Login: React.FC<Props> = ({ authentication, saveAccessToken, validation }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -41,7 +42,7 @@ const Login: React.FC<Props> = ({ authentication, validation }: Props) => {
         password: state.password
       })
 
-      localStorage.setItem('accessToken', account.accessToken)
+      await saveAccessToken.save(account.accessToken)
 
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       navigate('/')
