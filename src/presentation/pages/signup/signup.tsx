@@ -13,20 +13,22 @@ type Props = {
 const Signup: React.FC<Props> = ({ validation }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
+    email: '',
+    emailError: '',
     name: '',
     nameError: '',
-    emailError: 'Required field',
-    passwordError: 'Required field',
     passwordConfirmationError: 'Required field',
+    passwordError: 'Required field',
     mainError: ''
   })
 
   useEffect(() => {
     setState({
       ...state,
+      emailError: validation.validate('email', state.email),
       nameError: validation.validate('name', state.name)
     })
-  }, [state.name])
+  }, [state.email, state.name])
 
   return (
     <div className='signup'>
