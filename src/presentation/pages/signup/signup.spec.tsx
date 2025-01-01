@@ -37,7 +37,7 @@ describe('Signup', () => {
     Helper.testButtonIsDisabled(sut, 'submit', true)
     Helper.testStatusForField(sut, 'name-status', validationError)
     Helper.testStatusForField(sut, 'email-status', validationError)
-    Helper.testStatusForField(sut, 'password-status', 'Required field')
+    Helper.testStatusForField(sut, 'password-status', validationError)
     Helper.testStatusForField(sut, 'passwordConfirmation-status', 'Required field')
   })
 
@@ -57,5 +57,14 @@ describe('Signup', () => {
 
     Helper.populateField(sut, 'email')
     Helper.testStatusForField(sut, 'email-status', validationError)
+  })
+
+  test('should show password error if validation fails', () => {
+    const validationError = faker.lorem.sentence(3)
+
+    const { sut } = makeSut({ validationError })
+
+    Helper.populateField(sut, 'password')
+    Helper.testStatusForField(sut, 'password-status', validationError)
   })
 })
