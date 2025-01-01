@@ -127,7 +127,7 @@ describe('Signup', () => {
     Helper.testStatusForField(sut, 'passwordConfirmation-status')
   })
 
-  test('should enable submit button if for is valid', () => {
+  test('should enable submit button if form is valid', () => {
     const { sut } = makeSut()
 
     Helper.populateField(sut, 'name')
@@ -155,5 +155,14 @@ describe('Signup', () => {
     await simulateValidSubmit(sut, name, email, password)
 
     expect(addAccountSpy.params).toEqual({ name, email, password, passwordConfirmation: password })
+  })
+
+  test('should call Authentication only once', async () => {
+    const { sut, addAccountSpy } = makeSut()
+
+    await simulateValidSubmit(sut)
+    await simulateValidSubmit(sut)
+
+    expect(addAccountSpy.callsCount).toBe(1)
   })
 })
