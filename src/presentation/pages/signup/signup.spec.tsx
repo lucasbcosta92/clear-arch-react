@@ -13,7 +13,7 @@ type SutParams = {
   validationError: string
 }
 
-const makeSut = (params: SutParams): SutTypes => {
+const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
 
   validationStub.errorMessage = params?.validationError
@@ -75,5 +75,33 @@ describe('Signup', () => {
 
     Helper.populateField(sut, 'passwordConfirmation')
     Helper.testStatusForField(sut, 'passwordConfirmation-status', validationError)
+  })
+
+  test('should show name valid state if validation succeeds', () => {
+    const { sut } = makeSut()
+
+    Helper.populateField(sut, 'name')
+    Helper.testStatusForField(sut, 'name-status')
+  })
+
+  test('should show email valid state if validation succeeds', () => {
+    const { sut } = makeSut()
+
+    Helper.populateField(sut, 'email')
+    Helper.testStatusForField(sut, 'email-status')
+  })
+
+  test('should show password valid state if validation succeeds', () => {
+    const { sut } = makeSut()
+
+    Helper.populateField(sut, 'password')
+    Helper.testStatusForField(sut, 'password-status')
+  })
+
+  test('should show passwordConfirmation valid state if validation succeeds', () => {
+    const { sut } = makeSut()
+
+    Helper.populateField(sut, 'passwordConfirmation')
+    Helper.testStatusForField(sut, 'passwordConfirmation-status')
   })
 })
