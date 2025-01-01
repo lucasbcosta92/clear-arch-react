@@ -1,10 +1,10 @@
 import React from 'react'
+import { Router } from 'react-router-dom'
 import { cleanup, fireEvent, render, type RenderResult, waitFor } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
 import { faker } from '@faker-js/faker'
-import { Router } from 'react-router-dom'
 
-import { AuthenticationSpy, SaveAccessTokenMock, ValidationStub } from '@/presentation/test'
+import { AuthenticationSpy, Helper, SaveAccessTokenMock, ValidationStub } from '@/presentation/test'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { Login } from '@/presentation/pages'
 
@@ -74,21 +74,6 @@ const populatePasswordField = (
   fireEvent.input(passwordInput, { target: { value: password } })
 }
 
-const testStatusForField = (
-  sut: RenderResult,
-  fieldName: string,
-  validationError?: string
-): void => {
-  const emailStatus = sut.getByTestId(fieldName)
-  expect(emailStatus.title).toBe(validationError || 'OK')
-  expect(emailStatus.textContent).toBe(validationError ? '❌' : '✅')
-}
-
-const testFormStatusChildCount = (sut: RenderResult, count: number): void => {
-  const formStatus = sut.getByTestId('form-status')
-  expect(formStatus.childElementCount).toBe(count)
-}
-
 const testElementExists = (sut: RenderResult, fieldName: string): void => {
   const element = sut.getByTestId(fieldName)
   expect(element).toBeTruthy()
@@ -103,15 +88,6 @@ const testElementText = (
   expect(element.textContent).toBe(text)
 }
 
-const testButtonIsDisabled = (
-  sut: RenderResult,
-  fieldName: string,
-  isDisabled: boolean
-): void => {
-  const button = sut.getByTestId(fieldName) as HTMLButtonElement
-  expect(button.disabled).toBe(isDisabled)
-}
-
 describe('Login page', () => {
   afterEach(cleanup)
 
@@ -120,10 +96,10 @@ describe('Login page', () => {
 
     const { sut } = makeSut({ validationError })
 
-    testFormStatusChildCount(sut, 0)
-    testButtonIsDisabled(sut, 'submit', true)
-    testStatusForField(sut, 'email-status', validationError)
-    testStatusForField(sut, 'password-status', validationError)
+    Helper.testChildCount(sut, 'form-status', 0)
+    Helper.testButtonIsDisabled(sut, 'submit', true)
+    Helper.testStatusForField(sut, 'email-status', validationError)
+    Helper.testStatusForField(sut, 'password-status', validationError)
   })
 
   test('should show email error if validation fails', () => {
@@ -133,7 +109,7 @@ describe('Login page', () => {
 
     populateEmailField(sut)
 
-    testStatusForField(sut, 'email-status', validationError)
+    Helper.testStatusForField(sut, 'email-status', validationError)
   })
 
   test('should show password error if validation fails', () => {
@@ -143,7 +119,7 @@ describe('Login page', () => {
 
     populatePasswordField(sut)
 
-    testStatusForField(sut, 'password-status', validationError)
+    Helper.testStatusForField(sut, 'password-status', validationError)
   })
 
   test('should show email valid state if validation succeeds', () => {
@@ -151,7 +127,7 @@ describe('Login page', () => {
 
     populateEmailField(sut)
 
-    testStatusForField(sut, 'email-status')
+    Helper.testStatusForField(sut, 'email-status')
   })
 
   test('should show password valid state if validation succeeds', () => {
@@ -159,7 +135,7 @@ describe('Login page', () => {
 
     populatePasswordField(sut)
 
-    testStatusForField(sut, 'password-status')
+    Helper.testStatusForField(sut, 'password-status')
   })
 
   test('should enable submit button if for is valid', () => {
@@ -167,7 +143,7 @@ describe('Login page', () => {
 
     populateEmailField(sut)
     populatePasswordField(sut)
-    testButtonIsDisabled(sut, 'submit', false)
+    Helper.testButtonIsDisabled(sut, 'submit', false)
   })
 
   test('should show spinner on submit', async () => {
@@ -218,7 +194,7 @@ describe('Login page', () => {
     await simulateValidSubmit(sut)
 
     testElementText(sut, 'main-error', error.message)
-    testFormStatusChildCount(sut, 1)
+    Helper.testChildCount(sut, 'form-status', 1)
   })
 
   test('should call SaveAccessToken on success', async () => {
