@@ -15,7 +15,8 @@ body {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
   border-radius: 4px;
   border: 1px solid $primary-light;
   line-height: 40px;
