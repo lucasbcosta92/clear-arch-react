@@ -3,14 +3,16 @@ import './signup-styles.scss'
 import React, { useEffect, useState } from 'react'
 
 import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
+import { type AddAccount } from '@/domain/use-cases'
 import { type Validation } from '@/presentation/protocols/validation'
 import Context from '@/presentation/contexts/form/form-context'
 
 type Props = {
+  addAccount?: AddAccount
   validation?: Validation
 }
 
-const Signup: React.FC<Props> = ({ validation }: Props) => {
+const Signup: React.FC<Props> = ({ addAccount, validation }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -28,6 +30,13 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
     event.preventDefault()
 
     setState({ ...state, isLoading: true })
+
+    await addAccount.add({
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      passwordConfirmation: state.passwordConfirmation
+    })
   }
 
   useEffect(() => {
