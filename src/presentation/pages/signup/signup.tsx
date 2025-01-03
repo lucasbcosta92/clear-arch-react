@@ -1,7 +1,7 @@
 import './signup-styles.scss'
 
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
 import { type AddAccount, type SaveAccessToken } from '@/domain/use-cases'
@@ -88,7 +88,7 @@ const Signup: React.FC<Props> = ({ addAccount, saveAccessToken, validation }: Pr
           >
             Entrar
           </button>
-          <span className='link'>Voltar para login</span>
+          <Link to="/login" data-testid="login-link" className='link'>Voltar para login</Link>
           <FormStatus />
         </form>
       </Context.Provider>
