@@ -157,12 +157,22 @@ describe('Signup', () => {
     expect(addAccountSpy.params).toEqual({ name, email, password, passwordConfirmation: password })
   })
 
-  test('should call Authentication only once', async () => {
+  test('should call AddAccount only once', async () => {
     const { sut, addAccountSpy } = makeSut()
 
     await simulateValidSubmit(sut)
     await simulateValidSubmit(sut)
 
     expect(addAccountSpy.callsCount).toBe(1)
+  })
+
+  test('should not call AddAccount if form is invalid', async () => {
+    const validationError = faker.lorem.sentence(3)
+
+    const { sut, addAccountSpy } = makeSut({ validationError })
+
+    await simulateValidSubmit(sut)
+
+    expect(addAccountSpy.callsCount).toBe(0)
   })
 })
