@@ -1,18 +1,20 @@
 import './signup-styles.scss'
 
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
-import { type AddAccount } from '@/domain/use-cases'
+import { type AddAccount, type SaveAccessToken } from '@/domain/use-cases'
 import { type Validation } from '@/presentation/protocols/validation'
 import Context from '@/presentation/contexts/form/form-context'
 
 type Props = {
   addAccount?: AddAccount
   validation?: Validation
+  saveAccessToken?: SaveAccessToken
 }
 
-const Signup: React.FC<Props> = ({ addAccount, validation }: Props) => {
+const Signup: React.FC<Props> = ({ addAccount, saveAccessToken, validation }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -26,6 +28,8 @@ const Signup: React.FC<Props> = ({ addAccount, validation }: Props) => {
     mainError: ''
   })
 
+  const navigate = useNavigate()
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
 
@@ -36,12 +40,17 @@ const Signup: React.FC<Props> = ({ addAccount, validation }: Props) => {
         return
       }
 
-      await addAccount.add({
+      const account = await addAccount.add({
         name: state.name,
         email: state.email,
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       })
+
+      await saveAccessToken.save(account.accessToken)
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      navigate('/')
     } catch (error) {
       setState({
         ...state,
