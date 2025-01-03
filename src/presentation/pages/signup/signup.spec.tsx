@@ -211,4 +211,14 @@ describe('Signup', () => {
     expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken)
     expect(history.location.pathname).toBe('/')
   })
+
+  test('should go to SignUp page', async () => {
+    const { sut } = makeSut()
+
+    const signup = sut.getByTestId('login-link')
+
+    fireEvent.click(signup)
+
+    expect(history.location.pathname).toBe('/login')
+  })
 })
