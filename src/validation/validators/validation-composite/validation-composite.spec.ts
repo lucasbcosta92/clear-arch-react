@@ -30,7 +30,7 @@ describe('ValidationComposite', () => {
     fieldValidationsSpy[0].error = new Error(errorMessage)
     fieldValidationsSpy[1].error = new Error(faker.lorem.word())
 
-    const error = sut.validate(fieldName, faker.lorem.word())
+    const error = sut.validate(fieldName, { [fieldName]: faker.lorem.word() })
 
     expect(error).toBe(errorMessage)
   })
@@ -40,7 +40,7 @@ describe('ValidationComposite', () => {
 
     const { sut } = makeSut(fieldName)
 
-    const error = sut.validate(fieldName, faker.lorem.word())
+    const error = sut.validate(fieldName, { [fieldName]: faker.lorem.word() })
 
     expect(error).toBeFalsy()
   })

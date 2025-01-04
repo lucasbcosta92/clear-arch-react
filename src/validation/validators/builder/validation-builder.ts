@@ -1,4 +1,4 @@
-import { EmailValidation, MinLengthValidation, RequiredFieldValidation } from '@/validation/validators'
+import { CompareFieldValidation, EmailValidation, MinLengthValidation, RequiredFieldValidation } from '@/validation/validators'
 import { type FieldValidation } from '@/validation/protocols/field-validation'
 
 export class ValidationBuilder {
@@ -26,6 +26,12 @@ export class ValidationBuilder {
 
   required (): this {
     this.validations.push(new RequiredFieldValidation(this.fieldName))
+
+    return this
+  }
+
+  sameAs (fieldToCompare: string): this {
+    this.validations.push(new CompareFieldValidation(this.fieldName, fieldToCompare))
 
     return this
   }
