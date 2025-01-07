@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import './input-styles.scss'
 
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 
 import Context from '@/presentation/contexts/form/form-context'
 
@@ -9,31 +10,31 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
 const Input: React.FC<Props> = (props: Props) => {
   const { state, setState } = useContext(Context)
 
-  // eslint-disable-next-line react/prop-types
+  const inputRef = useRef<HTMLInputElement>()
+
   const inputName = props.name
+  const placeholder = props.placeholder
   const error = state[`${inputName}Error`]
-
-  const getStatus = (): string => {
-    return error ? '❌' : '✅'
-  }
-
-  const getTitle = (): string => {
-    return error || 'OK'
-  }
-
-  const handleChange = (event: React.FocusEvent<HTMLInputElement>): void => {
-    const target = event.target
-
-    setState({
-      ...state,
-      [target.name]: target.value
-    })
-  }
 
   return (
     <div className='input-wrapper'>
-      <input data-testid={inputName} onChange={handleChange} {...props} />
-      <span data-testid={`${inputName}-status`} title={getTitle()} className='status'>{getStatus()}</span>
+      <input
+        {...props}
+        data-testid={inputName}
+        placeholder=' '
+        ref={inputRef}
+        onChange={(e) => setState({ ...state, [e.target.name]: e.target.value })}
+      />
+      <label onClick={() => { inputRef.current.focus() }}>
+        {placeholder}
+      </label>
+      <span
+        data-testid={`${inputName}-status`}
+        title={error || 'OK'}
+        className='status'
+      >
+        {error ? '❌' : '✅'}
+      </span>
     </div>
   )
 }
