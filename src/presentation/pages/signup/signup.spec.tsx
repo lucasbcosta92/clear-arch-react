@@ -71,10 +71,10 @@ describe('Signup', () => {
 
     Helper.testChildCount(sut, 'form-status', 0)
     Helper.testButtonIsDisabled(sut, 'submit', true)
-    Helper.testStatusForField(sut, 'name-status', validationError)
-    Helper.testStatusForField(sut, 'email-status', validationError)
-    Helper.testStatusForField(sut, 'password-status', validationError)
-    Helper.testStatusForField(sut, 'passwordConfirmation-status', validationError)
+    Helper.testStatusForField(sut, 'name', validationError)
+    Helper.testStatusForField(sut, 'email', validationError)
+    Helper.testStatusForField(sut, 'password', validationError)
+    Helper.testStatusForField(sut, 'passwordConfirmation', validationError)
   })
 
   test('should show name error if validation fails', () => {
@@ -83,7 +83,7 @@ describe('Signup', () => {
     const { sut } = makeSut({ validationError })
 
     Helper.populateField(sut, 'name')
-    Helper.testStatusForField(sut, 'name-status', validationError)
+    Helper.testStatusForField(sut, 'name', validationError)
   })
 
   test('should show email error if validation fails', () => {
@@ -92,7 +92,7 @@ describe('Signup', () => {
     const { sut } = makeSut({ validationError })
 
     Helper.populateField(sut, 'email')
-    Helper.testStatusForField(sut, 'email-status', validationError)
+    Helper.testStatusForField(sut, 'email', validationError)
   })
 
   test('should show password error if validation fails', () => {
@@ -101,7 +101,7 @@ describe('Signup', () => {
     const { sut } = makeSut({ validationError })
 
     Helper.populateField(sut, 'password')
-    Helper.testStatusForField(sut, 'password-status', validationError)
+    Helper.testStatusForField(sut, 'password', validationError)
   })
 
   test('should show passwordConfirmation error if validation fails', () => {
@@ -110,35 +110,35 @@ describe('Signup', () => {
     const { sut } = makeSut({ validationError })
 
     Helper.populateField(sut, 'passwordConfirmation')
-    Helper.testStatusForField(sut, 'passwordConfirmation-status', validationError)
+    Helper.testStatusForField(sut, 'passwordConfirmation', validationError)
   })
 
   test('should show name valid state if validation succeeds', () => {
     const { sut } = makeSut()
 
     Helper.populateField(sut, 'name')
-    Helper.testStatusForField(sut, 'name-status')
+    Helper.testStatusForField(sut, 'name')
   })
 
   test('should show email valid state if validation succeeds', () => {
     const { sut } = makeSut()
 
     Helper.populateField(sut, 'email')
-    Helper.testStatusForField(sut, 'email-status')
+    Helper.testStatusForField(sut, 'email')
   })
 
   test('should show password valid state if validation succeeds', () => {
     const { sut } = makeSut()
 
     Helper.populateField(sut, 'password')
-    Helper.testStatusForField(sut, 'password-status')
+    Helper.testStatusForField(sut, 'password')
   })
 
   test('should show passwordConfirmation valid state if validation succeeds', () => {
     const { sut } = makeSut()
 
     Helper.populateField(sut, 'passwordConfirmation')
-    Helper.testStatusForField(sut, 'passwordConfirmation-status')
+    Helper.testStatusForField(sut, 'passwordConfirmation')
   })
 
   test('should enable submit button if form is valid', () => {

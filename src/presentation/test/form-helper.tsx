@@ -4,11 +4,14 @@ import { fireEvent, type RenderResult } from '@testing-library/react'
 export const testStatusForField = (
   sut: RenderResult,
   fieldName: string,
-  validationError?: string
+  validationError: string = ''
 ): void => {
-  const fieldStatus = sut.getByTestId(fieldName)
-  expect(fieldStatus.title).toBe(validationError || 'OK')
-  expect(fieldStatus.textContent).toBe(validationError ? '❌' : '✅')
+  const wrap = sut.getByTestId(`${fieldName}-wrapper`)
+  const field = sut.getByTestId(fieldName)
+  const label = sut.getByTestId(`${fieldName}-label`)
+  expect(wrap.getAttribute('data-status')).toBe(validationError ? 'invalid' : 'valid')
+  expect(field.title).toBe(validationError)
+  expect(label.title).toBe(validationError)
 }
 
 export const testChildCount = (

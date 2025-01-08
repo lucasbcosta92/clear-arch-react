@@ -5,8 +5,24 @@
   margin-top: 40px;
   position: relative;
 
+  &[data-status='valid'] {
+    border-color: $success;
+
+    &::after {
+      background-color: $success;
+    }
+  }
+
+  &[data-status='invalid'] {
+    border-color: $error;
+
+    &::after {
+      background-color: $error;
+    }
+  }
+
   &::after {
-    background-color: $primary;
+    background-color: $disabled-color;
     bottom: -2px;
     content: '';
     height: 2px;
@@ -14,7 +30,7 @@
     position: absolute;
     transform-origin: 0%;
     transform: scaleX(0);
-    transition: transform 500ms ease;
+    transition: transform 400ms ease;
     width: 100%;
   }
 
@@ -47,7 +63,7 @@
     position: absolute;
     transform-origin: 0%;
     transform: translateY(10);
-    transition: transform 500ms ease;
+    transition: transform 400ms ease;
   }
 
   .status {
