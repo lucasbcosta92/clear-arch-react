@@ -1,6 +1,14 @@
 import { faker } from '@faker-js/faker'
 
-import { HttpStatusCode, type HttpPostClient, type HttpPostParams, type HttpResponse } from '@/data/protocols/http'
+import { type HttpGetClient, HttpStatusCode, type HttpPostClient, type HttpPostParams, type HttpResponse, type HttpGetParams } from '@/data/protocols/http'
+
+export class HttpGetClientSpy implements HttpGetClient {
+  url?: string
+
+  async get (params: HttpGetParams): Promise<void> {
+    this.url = params.url
+  }
+}
 
 export class HttpPostClientSpy<R> implements HttpPostClient<R> {
   url?: string
