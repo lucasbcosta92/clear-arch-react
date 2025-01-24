@@ -1,6 +1,13 @@
 import { faker } from '@faker-js/faker'
 
-import { type HttpGetClient, HttpStatusCode, type HttpPostClient, type HttpPostParams, type HttpResponse, type HttpGetParams } from '@/data/protocols/http'
+import {
+  HttpStatusCode,
+  type HttpGetClient,
+  type HttpGetParams,
+  type HttpPostClient,
+  type HttpPostParams,
+  type HttpResponse
+} from '@/data/protocols/http'
 
 export class HttpGetClientSpy implements HttpGetClient {
   url?: string
