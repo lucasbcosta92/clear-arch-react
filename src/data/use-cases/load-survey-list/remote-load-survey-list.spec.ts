@@ -86,4 +86,16 @@ describe('LoadSurveyList', () => {
 
     expect(surveyList).toEqual(httpResponse)
   })
+
+  test('should return an empty list of SurverModels if HttpGetClient returns 204', async () => {
+    const { sut, httpGetClientSpy } = makeSut()
+
+    httpGetClientSpy.response = {
+      statusCode: HttpStatusCode.noContent
+    }
+
+    const surveyList = await sut.loadAll()
+
+    expect(surveyList).toEqual([])
+  })
 })
