@@ -44,3 +44,7 @@ export const mockPostRequest = (): HttpPostParams => ({
     password: faker.internet.password()
   }
 })
+
+export const mockGetRequest = (): HttpPostParams => ({
+  url: faker.internet.url()
+})
