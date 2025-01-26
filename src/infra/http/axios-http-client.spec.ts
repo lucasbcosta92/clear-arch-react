@@ -19,6 +19,47 @@ const makeSut = (): SutTypes => {
   return { sut, mockedAxios }
 }
 
+describe('Get', () => {
+  test('should call axios.get with correct values', async () => {
+    const request = mockGetRequest()
+
+    const { sut, mockedAxios } = makeSut()
+
+    await sut.get(request)
+
+    expect(mockedAxios.get).toHaveBeenCalledWith(request.url)
+  })
+
+  test('should return correct response on axios.get', async () => {
+    const request = mockGetRequest()
+
+    const { sut, mockedAxios } = makeSut()
+
+    const httpResponse = await sut.get(request)
+
+    const axiosResponse = await mockedAxios.get.mock.results[0].value
+
+    expect(httpResponse).toEqual({
+      statusCode: axiosResponse.status,
+      body: axiosResponse.data
+    })
+  })
+
+  test('should return correct error on axios.get', () => {
+    const request = mockGetRequest()
+
+    const { sut, mockedAxios } = makeSut()
+
+    mockedAxios.get.mockRejectedValueOnce({
+      response: mockHttpResponse()
+    })
+
+    const promise = sut.get(request)
+
+    expect(promise).toEqual(mockedAxios.get.mock.results[0].value)
+  })
+})
+
 describe('Post', () => {
   test('should call axios.post with correct values', async () => {
     const request = mockPostRequest()
@@ -57,32 +98,5 @@ describe('Post', () => {
     const promise = sut.post(request)
 
     expect(promise).toEqual(mockedAxios.post.mock.results[0].value)
-  })
-})
-
-describe('Get', () => {
-  test('should call axios.get with correct values', async () => {
-    const request = mockGetRequest()
-
-    const { sut, mockedAxios } = makeSut()
-
-    await sut.get(request)
-
-    expect(mockedAxios.get).toHaveBeenCalledWith(request.url)
-  })
-
-  test('should return correct response on axios.get', async () => {
-    const request = mockGetRequest()
-
-    const { sut, mockedAxios } = makeSut()
-
-    const httpResponse = await sut.get(request)
-
-    const axiosResponse = await mockedAxios.get.mock.results[0].value
-
-    expect(httpResponse).toEqual({
-      statusCode: axiosResponse.status,
-      body: axiosResponse.data
-    })
   })
 })
