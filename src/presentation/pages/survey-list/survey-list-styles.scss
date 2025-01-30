@@ -1,5 +1,11 @@
 @import '../../styles/colors.scss';
 
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .survey-list-wrap {
   display: flex;
   flex-direction: column;
@@ -43,11 +49,47 @@
         justify-content: space-between;
         overflow: hidden;
 
+        &:empty {          
+          background-image:
+            linear-gradient(to right, $disabled-background, $disabled-background),
+            linear-gradient(to right, $disabled-background, $disabled-background),
+            linear-gradient(to right, $disabled-background, $disabled-background),
+            linear-gradient(to right, $disabled-background, $disabled-background),
+            linear-gradient(to right, $disabled-background, $disabled-background);
+          background-position: 
+            24px 24px,
+            left 0 bottom 0,
+            125.91px 54px,
+            125.91px 78px,
+            125.91px 102px;
+          background-repeat: no-repeat;
+          background-size:
+            77.91px 128px,
+            100% 40px,
+            150px 18px,
+            150px 18px,
+            150px 18px;
+          position: relative;
+          overflow: hidden;
+
+            &::after {
+              animation: shimmer 1.2s infinite;
+              background-image: linear-gradient(to right, transparent, rgba($white, 0.4), transparent);
+              content: '';
+              height: 100%;
+              left: 0;
+              position: absolute;
+              top: 0;
+              transform: translateX(-100%);
+              width: 100%;
+            }
+        }
+
         .survey-content {
           background-image: 
             linear-gradient(to right, rgba($primary-light, 0.5), rgba($primary-light, 0.5)),
             linear-gradient(to right, $white, $white);
-          background-position: 0 0, 54 0;
+          background-position: 0 0, 54px 0;
           background-repeat: no-repeat;
           background-size: 54px 100%, 100% 100%;
           display: flex;
