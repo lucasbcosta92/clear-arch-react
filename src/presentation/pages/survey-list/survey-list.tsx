@@ -20,6 +20,7 @@ const SurveyList: React.FC = () => {
         <ul>
           <li>
             <div className='survey-content'>
+              <span className="status">Lido</span>
               <time>
                 <span className='day'>27</span>
                 <span className='month'>01</span>
