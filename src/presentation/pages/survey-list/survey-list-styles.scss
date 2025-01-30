@@ -108,3 +108,17 @@
     }
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .survey-list-wrap {
+    .content-wrap {
+      ul {
+        flex-direction: column;
+
+        li {
+          flex-basis: 100%;
+        }
+      }
+    }
+  }
+}
