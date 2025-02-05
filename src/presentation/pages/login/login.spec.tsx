@@ -4,14 +4,14 @@ import { cleanup, fireEvent, render, type RenderResult, waitFor } from '@testing
 import { createMemoryHistory } from 'history'
 import { faker } from '@faker-js/faker'
 
-import { AuthenticationSpy, Helper, SaveAccessTokenMock, ValidationStub } from '@/presentation/test'
+import { AuthenticationSpy, Helper, UpdateCurrentAccountMock, ValidationStub } from '@/presentation/test'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { Login } from '@/presentation/pages'
 
 type SutTypes = {
   sut: RenderResult
   authenticationSpy: AuthenticationSpy
-  saveAccessTokenMock: SaveAccessTokenMock
+  updateCurrentAccountMock: UpdateCurrentAccountMock
 }
 
 type SutParams = {
@@ -22,7 +22,7 @@ const history = createMemoryHistory({ initialEntries: ['/login'] })
 
 const makeSut = (params?: SutParams): SutTypes => {
   const authenticationSpy = new AuthenticationSpy()
-  const saveAccessTokenMock = new SaveAccessTokenMock()
+  const updateCurrentAccountMock = new UpdateCurrentAccountMock()
   const validationStub = new ValidationStub()
 
   validationStub.errorMessage = params?.validationError
@@ -31,14 +31,14 @@ const makeSut = (params?: SutParams): SutTypes => {
     <Router navigator={history} location={history.location}>
       <Login
         authentication={authenticationSpy}
-        saveAccessToken={saveAccessTokenMock}
+        updateCurrentAccount={updateCurrentAccountMock}
         validation={validationStub}
       />
     </Router>
   )
 
   return {
-    saveAccessTokenMock,
+    updateCurrentAccountMock,
     authenticationSpy,
     sut
   }
@@ -166,11 +166,11 @@ describe('Login page', () => {
   })
 
   test('should call SaveAccessToken on success', async () => {
-    const { sut, authenticationSpy, saveAccessTokenMock } = makeSut()
+    const { sut, authenticationSpy, updateCurrentAccountMock } = makeSut()
 
     await simulateValidSubmit(sut)
 
-    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accessToken)
+    expect(updateCurrentAccountMock.account).toEqual(authenticationSpy.account)
     expect(history.location.pathname).toBe('/')
   })
 

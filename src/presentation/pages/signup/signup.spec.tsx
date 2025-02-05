@@ -4,14 +4,14 @@ import { cleanup, fireEvent, render, waitFor, type RenderResult } from '@testing
 import { createMemoryHistory } from 'history'
 import { faker } from '@faker-js/faker'
 
-import { AddAccountSpy, Helper, SaveAccessTokenMock, ValidationStub } from '@/presentation/test'
+import { AddAccountSpy, Helper, UpdateCurrentAccountMock, ValidationStub } from '@/presentation/test'
 import { Signup } from '@/presentation/pages'
 import { EmailInUseError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
-  saveAccessTokenMock: SaveAccessTokenMock
+  updatecurrentAccountMock: UpdateCurrentAccountMock
 }
 
 type SutParams = {
@@ -22,7 +22,7 @@ const history = createMemoryHistory({ initialEntries: ['/signup'] })
 
 const makeSut = (params?: SutParams): SutTypes => {
   const addAccountSpy = new AddAccountSpy()
-  const saveAccessTokenMock = new SaveAccessTokenMock()
+  const updatecurrentAccountMock = new UpdateCurrentAccountMock()
   const validationStub = new ValidationStub()
 
   validationStub.errorMessage = params?.validationError
@@ -31,7 +31,7 @@ const makeSut = (params?: SutParams): SutTypes => {
     <Router navigator={history} location={history.location}>
       <Signup
         addAccount={addAccountSpy}
-        saveAccessToken={saveAccessTokenMock}
+        updateCurrentAccount={updatecurrentAccountMock}
         validation={validationStub}
       />
     </Router>
@@ -40,7 +40,7 @@ const makeSut = (params?: SutParams): SutTypes => {
   return {
     sut,
     addAccountSpy,
-    saveAccessTokenMock
+    updatecurrentAccountMock
   }
 }
 
@@ -204,11 +204,11 @@ describe('Signup', () => {
   })
 
   test('should call SaveAccessToken on success', async () => {
-    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
+    const { sut, addAccountSpy, updatecurrentAccountMock } = makeSut()
 
     await simulateValidSubmit(sut)
 
-    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken)
+    expect(updatecurrentAccountMock.account).toEqual(addAccountSpy.account)
     expect(history.location.pathname).toBe('/')
   })
 
