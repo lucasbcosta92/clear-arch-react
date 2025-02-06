@@ -6,16 +6,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Footer, FormStatus, Input, LoginHeader, SubmitButton } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
 
-import { type AddAccount, type SaveAccessToken } from '@/domain/use-cases'
+import { type AddAccount, type UpdateCurrentAccount } from '@/domain/use-cases'
 import { type Validation } from '@/presentation/protocols/validation'
 
 type Props = {
   addAccount: AddAccount
   validation: Validation
-  saveAccessToken: SaveAccessToken
+  updateCurrentAccount: UpdateCurrentAccount
 }
 
-const Signup: React.FC<Props> = ({ addAccount, saveAccessToken, validation }: Props) => {
+const Signup: React.FC<Props> = ({ addAccount, updateCurrentAccount, validation }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     isFormInvalid: true,
@@ -49,7 +49,7 @@ const Signup: React.FC<Props> = ({ addAccount, saveAccessToken, validation }: Pr
         passwordConfirmation: state.passwordConfirmation
       })
 
-      await saveAccessToken.save(account.accessToken)
+      await updateCurrentAccount.save(account)
 
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       navigate('/')
@@ -82,7 +82,7 @@ const Signup: React.FC<Props> = ({ addAccount, saveAccessToken, validation }: Pr
   }, [state.email, state.name, state.passwordConfirmation, state.password])
 
   return (
-    <div className='signup'>
+    <div className='signup-wrap'>
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
         <form data-testid="form" className='form' onSubmit={(event) => { void handleSubmit(event) }}>
